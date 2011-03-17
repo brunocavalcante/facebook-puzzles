@@ -36,20 +36,15 @@ accepted_words = map(lambda l: l.rstrip(), accepted_words_file.readlines())
 total_of_changes = 0
 for word in wall_post_words[0]:
     word = word.upper()
-    smaller_number_of_changes = None
+    word_changes = None
     chosen_one = ''
     for accepted_word in accepted_words:
 		changes = number_of_changes(word, accepted_word)
-		
-		if changes == 0:
-			smaller_number_of_changes = 0
-			break
-
-		if smaller_number_of_changes is None or changes < smaller_number_of_changes:
-			smaller_number_of_changes = changes
+		if word_changes is None or changes < word_changes:
+			word_changes = changes
 			chosen_one = accepted_word
 
-    total_of_changes = total_of_changes + smaller_number_of_changes
-    print word + ": " + chosen_one + "(" + str(smaller_number_of_changes) + ")"
+    total_of_changes = total_of_changes + word_changes
+    print word + ": " + chosen_one + " (" + str(word_changes) + " changes)"
 
-print "Resultado final: " + str(total_of_changes)
+print "Result: " + str(total_of_changes) + " changes"
