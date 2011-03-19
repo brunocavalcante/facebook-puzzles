@@ -10,10 +10,7 @@ def number_of_changes(word1, word2):
 	changes = 0
 	removals = 0
 	for i in range(0, len(word1)):
-		if i - removals == 0:
-		    j = 0
-		else:
-		    j = i - removals
+		j = 0 if (i - removals == 0) else i - removals
 
 		if j < len(word2) and word1[i] != word2[j]:
 		    if len(word1) <= len(word2) or removals >= length_diff:
@@ -35,16 +32,12 @@ accepted_words = map(lambda l: l.rstrip(), accepted_words_file.readlines())
 
 total_of_changes = 0
 for word in wall_post_words[0]:
-    word = word.upper()
     word_changes = None
-    chosen_one = ''
     for accepted_word in accepted_words:
-		changes = number_of_changes(word, accepted_word)
+		changes = number_of_changes(word.upper(), accepted_word)
 		if word_changes is None or changes < word_changes:
 			word_changes = changes
-			chosen_one = accepted_word
 
     total_of_changes = total_of_changes + word_changes
-    print word + ": " + chosen_one + " (" + str(word_changes) + " changes)"
 
-print "Result: " + str(total_of_changes) + " changes"
+print total_of_changes
