@@ -29,13 +29,12 @@ def prediction_is_available(prediction, ranges_used):
 
 totals = []
 for permutation in itertools.permutations(predictions):
+    ranges_used = []
+    i_total = 0
     for i in permutation:
-        ranges_used = []
-        i_total = 0 
-        for j in permutation:
-            if prediction_is_available(j, ranges_used):
-                i_total = i_total + int(j[2])
-                ranges_used.append(create_range_for_prediction(j))
-        totals.append(i_total)
+        if prediction_is_available(i, ranges_used):
+            i_total = i_total + int(i[2])
+            ranges_used.append(create_range_for_prediction(i))
+    totals.append(i_total)
 
 print max(totals)
